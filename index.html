@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>RoboCheck — Bulk Roblox Checker</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="dot"></span>
+    <h1>RoboCheck</h1>
+  </div>
+  <span id="pill" class="pill idle">idle</span>
+</header>
+
+<main>
+  <section class="card" id="setup">
+    <label class="lbl" for="combos">Combos — one per line</label>
+    <textarea id="combos" spellcheck="false"
+      placeholder="username:password&#10;email:password&#10;&#10;Up to thousands. Duplicates auto-removed."></textarea>
+
+    <div class="row">
+      <button class="ghost" id="loadFile">Load .txt</button>
+      <button class="ghost" id="pasteBtn">Paste clipboard</button>
+      <span class="muted" id="count">0 combos</span>
+    </div>
+
+    <details class="opts">
+      <summary>Settings</summary>
+      <div class="grid">
+        <label>Threads <input type="number" id="concurrency" min="1" max="30" value="5" /></label>
+        <label>Delay ms <input type="number" id="delay" min="0" max="5000" value="150" /></label>
+        <label>Retries <input type="number" id="retries" min="0" max="5" value="2" /></label>
+      </div>
+      <label class="check"><input type="checkbox" id="enrich" checked /> Pull avatar / join date</label>
+      <label class="check"><input type="checkbox" id="robux" /> Pull Robux (threads must be 1)</label>
+    </details>
+
+    <div class="row">
+      <button class="primary" id="startBtn">Start check</button>
+      <button class="ghost hidden" id="pauseBtn">Pause</button>
+      <button class="danger hidden" id="stopBtn">Stop</button>
+    </div>
+    <p class="hint">Your current Roblox session is backed up and restored when the run ends.</p>
+  </section>
+
+  <section class="card hidden" id="progressCard">
+    <div class="bar"><div id="bar" class="fill"></div></div>
+    <div class="counters">
+      <div><b id="cDone">0</b><span>done</span></div>
+      <div class="ok"><b id="cValid">0</b><span>valid</span></div>
+      <div class="bad"><b id="cInvalid">0</b><span>invalid</span></div>
+      <div class="warn"><b id="cTwofa">0</b><span>2FA</span></div>
+      <div class="warn"><b id="cCaptcha">0</b><span>captcha</span></div>
+      <div><b id="cError">0</b><span>error</span></div>
+    </div>
+  </section>
+
+  <section class="card hidden" id="summaryCard">
+    <h2>Summary</h2>
+    <div id="summaryBody"></div>
+    <div class="row wrap">
+      <button class="ghost" id="expValid">Export valid</button>
+      <button class="ghost" id="expAll">Export CSV</button>
+      <button class="ghost" id="expCookies">Export valid + cookie</button>
+      <button class="danger" id="clearBtn">Clear</button>
+    </div>
+  </section>
+
+  <section class="hidden" id="resultsWrap">
+    <div class="toolbar">
+      <input id="search" placeholder="Filter by name..." />
+      <div class="chips">
+        <button data-f="all" class="chip on">All</button>
+        <button data-f="valid" class="chip">Valid</button>
+        <button data-f="invalid" class="chip">Invalid</button>
+        <button data-f="twofa" class="chip">2FA</button>
+        <button data-f="captcha" class="chip">Captcha</button>
+        <button data-f="error" class="chip">Error</button>
+      </div>
+    </div>
+    <div id="list" class="list"></div>
+    <p class="muted center" id="moreNote"></p>
+  </section>
+</main>
+
+<input type="file" id="file" accept=".txt,.csv,text/plain" class="hidden" />
+<script src="app.js"></script>
+</body>
+</html>
