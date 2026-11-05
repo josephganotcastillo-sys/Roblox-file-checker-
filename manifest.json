@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "RoboCheck — Bulk Roblox Checker",
+  "version": "1.0.0",
+  "description": "Bulk-check Roblox user:pass combos locally. Live summary, valid/invalid/2FA detection, exports. No server.",
+  "permissions": ["storage", "unlimitedStorage", "cookies", "tabs", "alarms"],
+  "host_permissions": [
+    "https://*.roblox.com/*",
+    "https://roblox.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "Open RoboCheck" }
+}
